@@ -1,0 +1,46 @@
+loadstring(str)()https://github.com/jt7w2010/flyhub.gitlocal str = [=[\\\lua
+local placeId = game.PlaceId
+if placeId == 1234567890 then
+    -- Code to execute if the place ID is 1234567890
+elseif placeId == 9876543210 then
+    -- Code to execute if the place ID is 9876543210
+else
+    -- Code to execute if the place ID is not a specific value
+end
+
+-- Define the key to activate and deactivate flying
+local FLY_KEY = Enum.KeyCode.F
+
+-- Check if the player's character exists
+game.Players.LocalPlayer.CharacterAdded:Connect(function(character)
+    -- Create a variable to store the humanoid
+    local humanoid = character:WaitForChild("Humanoid")
+
+    -- Define a variable to store the fly state
+    local flyActive = false
+
+    -- Function to toggle fly state
+    local function toggleFly()
+        flyActive = not flyActive
+        humanoid.PlatformStand = flyActive
+        humanoid.Sit = flyActive
+        if flyActive then
+            humanoid:ChangeState(Enum.HumanoidStateType.Flying)
+        end
+    end
+
+    -- Activate or deactivate fly on key press
+    game:GetService('UserInputService').InputBegan:Connect(function(input)
+        if input.KeyCode == FLY_KEY then
+            toggleFly()
+        end
+    end)
+
+    -- Deactivate fly when character dies
+    humanoid.Died:Connect(function()
+        flyActive = false
+    end)
+end)
+
+]=] -- Replace with the string you want to load
+loadstring(str)()
